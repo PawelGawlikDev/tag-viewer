@@ -1,0 +1,8 @@
+node_modules/*
+public/*
+dist/*
+build/*
+coverage/*
+pipelines/*
+playwright.config.ts
+react-app-env.d.ts

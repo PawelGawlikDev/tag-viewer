@@ -1,0 +1,39 @@
+{
+  "env": {
+    "browser": true,
+    "jest": true,
+    "es2021": true
+  },
+  "extends": ["react-app", "react-app/jest", "prettier"],
+  "plugins": ["prettier"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": ["tsconfig.json"]
+  },
+  "rules": {
+    "prettier/prettier": [
+      "warn",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    "import/order": "off",
+    "import/extensions": "off",
+    "import/prefer-default-export": "off",
+    "import/no-anonymous-default-export": "off"
+  },
+  "overrides": [
+    {
+      "files": ["*.test.tsx", "setupTests.ts"],
+      "rules": {
+        "no-console": "off",
+        "import/no-extraneous-dependencies": "off",
+        "no-await-in-loop": "off",
+        "class-methods-use-this": "off",
+        "@typescript-eslint/no-unused-expressions": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-restricted-imports": "off"
+      }
+    }
+  ]
+}
