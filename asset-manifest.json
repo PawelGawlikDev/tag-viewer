@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/pawelgawlikdev.github.io/tag-viewer/static/css/main.f855e6bc.css",
+    "main.js": "/pawelgawlikdev.github.io/tag-viewer/static/js/main.53083473.js",
+    "static/js/453.64849593.chunk.js": "/pawelgawlikdev.github.io/tag-viewer/static/js/453.64849593.chunk.js",
+    "index.html": "/pawelgawlikdev.github.io/tag-viewer/index.html",
+    "main.f855e6bc.css.map": "/pawelgawlikdev.github.io/tag-viewer/static/css/main.f855e6bc.css.map",
+    "main.53083473.js.map": "/pawelgawlikdev.github.io/tag-viewer/static/js/main.53083473.js.map",
+    "453.64849593.chunk.js.map": "/pawelgawlikdev.github.io/tag-viewer/static/js/453.64849593.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f855e6bc.css",
+    "static/js/main.53083473.js"
+  ]
+}
