@@ -9,6 +9,7 @@ import TableHeader from "../TableHeader/TableHeader";
 import TableToolbar from "../TableToolbar/TableToolbar";
 import createData from "../../utils/createData";
 import getTags from "../../utils/getTags";
+import Button from "@mui/material/Button";
 import { Skeleton } from "@mui/material";
 import { StyledTableCell, StyledTableRow } from "../../utils/style";
 
@@ -57,30 +58,36 @@ export default function TagsTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [error, setError] = React.useState(false);
-  const [dataFetched, setDataFetched] = React.useState(false);
+  const [pageIndex, setPageIndex] = React.useState(1);
+  const [loadingMore, setLoadingMore] = React.useState(false);
+
+  const handleGetMoreTags = () => {
+    setLoadingMore(true);
+    setPageIndex((prevPageIndex) => prevPageIndex + 1);
+  };
 
   React.useEffect(() => {
-    if (!dataFetched) {
+    if (pageIndex > 0 && pageIndex <= 100) {
+      setLoading(true);
       getTags(
-        "https://api.stackexchange.com/2.3/tags?order=desc&sort=popular&site=stackoverflow",
+        `https://api.stackexchange.com/2.3/tags?page=${pageIndex}&order=desc&sort=popular&site=stackoverflow`,
       )
         .then((resolve) => {
           const newRows: Data[] = resolve.map((tag: any, index: number) =>
             createData(index, tag.name, tag.count),
           );
-          setRows(newRows);
+          setRows((prevRows) => [...prevRows, ...newRows]);
           setLoading(false);
-          setDataFetched(true);
+          setLoadingMore(false);
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
           setLoading(false);
           setError(true);
+          setLoadingMore(false);
         });
-    } else {
-      setLoading(false);
     }
-  }, [dataFetched]);
+  }, [pageIndex]);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -117,16 +124,32 @@ export default function TagsTable() {
     <Box sx={{ width: "80%" }} className={"Table"}>
       <Paper sx={{ width: "100%", mb: 2 }}>
         <TableToolbar />
-        <TablePagination
-          className="rowsPerPage"
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+        <Box
+          sx={{
+            display: "flex",
+            alignContent: "center",
+            justifyContent: "space-between",
+            alignItems: "stretch",
+          }}
+        >
+          <TablePagination
+            className="rowsPerPage"
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+          <Button
+            variant="contained"
+            onClick={handleGetMoreTags}
+            disabled={loadingMore}
+          >
+            {loadingMore ? "Loading..." : "Get More Tags"}
+          </Button>
+        </Box>
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}

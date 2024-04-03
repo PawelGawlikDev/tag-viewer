@@ -2,7 +2,7 @@
   "name": "tag-viewer",
   "version": "0.1.0",
   "private": true,
-  "homepage": "pawelgawlikdev.github.io/tag-viewer/",
+  "homepage": "https://pawelgawlikdev.github.io/tag-viewer/",
   "scripts": {
     "build": "react-scripts build",
     "build-storybook": "storybook build",
